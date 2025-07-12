@@ -540,16 +540,19 @@ class MultiMCInstall(object):
         # MultiMC is built with Qt, so why not use Qt's settings loader?
         mmcSettings = QtCore.QSettings(configPath, QtCore.QSettings.IniFormat)
         instanceDir = mmcSettings.value("InstanceDir", "")
-        if not instanceDir:
-            raise MultiMCInstallError("InstanceDir not set")
+        versionsDir = mmcSettings.value("VersionsDir", "")
+        if not instanceDir or not versionsDir:
+            raise MultiMCInstallError("InstanceDir or VersionsDir not set")
 
         self.mmcDir = os.path.dirname(configPath)
         if not os.path.isabs(instanceDir):
             self.instanceDir = os.path.join(self.mmcDir, instanceDir)
         else:
             self.instanceDir = instanceDir
-
-        self.versionsDir = os.path.join(self.mmcDir, "versions")
+        if not os.path.isabs(versionsDir):
+            self.versionsDir = os.path.join(self.mmcDir, versionsDir)
+        else:
+            self.versionsDir = versionsDir
 
         self.name = os.path.basename(self.mmcDir)
         # read versions.dat? (qt binary json format)
