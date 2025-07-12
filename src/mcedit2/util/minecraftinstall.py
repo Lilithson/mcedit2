@@ -789,8 +789,8 @@ class MinecraftInstallsDialog(QtGui.QDialog, Ui_installsWidget):
 
     def addMMCInstall(self):
         result = QtGui.QFileDialog.getOpenFileName(self,
-                                                   "Choose a MultiMC configuration file (multimc.cfg)",
-                                                   filter="MultiMC configuration files (multimc.cfg)")
+                                                   "Choose a MultiMC configuration file (multimc.cfg/prismlauncher.cfg)",
+                                                   filter="MultiMC configuration files (multimc.cfg/prismlauncher.cfg)")
         installs = GetInstalls()
         if not result:
             return
